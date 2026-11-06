@@ -125,6 +125,97 @@
     }
     .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
 
+    /* ===== NAV DROPDOWN (hover-triggered) ===== */
+    .nav-item.dropdown { position: relative; }
+
+    /* Dropdown toggle: replace underline bar with a small caret */
+    .nav-link.dropdown-toggle::after {
+      content: '';
+      position: static;
+      left: auto; right: auto; bottom: auto;
+      width: 5px; height: 5px;
+      margin-left: .4rem;
+      margin-bottom: 2px;
+      border: none;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      background: none;
+      transform: rotate(45deg);
+      display: inline-block;
+      vertical-align: middle;
+      transition: transform .25s;
+    }
+    .nav-item.dropdown:hover .nav-link.dropdown-toggle::after {
+      transform: rotate(225deg);
+      margin-bottom: -2px;
+    }
+
+    /* Dropdown menu panel */
+    .nav-item.dropdown .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      margin: .45rem 0 0;
+      padding: .4rem 0;
+      background: rgba(10,22,40,.97);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 14px 36px rgba(0,0,0,.55), 0 0 24px rgba(0,212,255,.1);
+      backdrop-filter: blur(12px);
+      list-style: none;
+      z-index: 1050;
+    }
+    /* Invisible hover bridge: fills the gap between the nav link and the menu
+       so moving the mouse down never crosses a "dead zone" that closes it. */
+    .nav-item.dropdown .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -24px;
+      left: -1px;
+      right: -1px;
+      height: 24px;
+      background: transparent;
+    }
+    .nav-item.dropdown:hover .dropdown-menu,
+    .nav-item.dropdown:focus-within .dropdown-menu { display: block; }
+
+    .dropdown-item {
+      display: block;
+      font-family: var(--font-display);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--slate);
+      background: transparent;
+      padding: .55rem 1.1rem;
+      text-decoration: none;
+      transition: color .2s, background .2s, padding-left .2s;
+    }
+    .dropdown-item:hover, .dropdown-item:focus {
+      color: var(--cyan);
+      background: rgba(0,212,255,.08);
+      padding-left: 1.45rem;
+      text-shadow: 0 0 8px rgba(0,212,255,.5);
+    }
+
+    /* On mobile the navbar is collapsed — show items inline instead of hover */
+    @media (max-width: 991.98px) {
+      .nav-item.dropdown .dropdown-menu {
+        display: block;
+        position: static;
+        min-width: 0;
+        margin: 0;
+        padding: 0 0 0 1rem;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+    }
+
     /* ===== SECTIONS ===== */
     section {
       position: relative;
@@ -719,7 +810,13 @@
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
         <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#projects" role="button" aria-expanded="false">Projects</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#projects">Featured Work</a></li>
+            <li><a class="dropdown-item" href="#web-development">Web Development</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
         <li class="nav-item"><a class="nav-link" href="#honors">Honors</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -1014,7 +1111,7 @@
     </div>
 
     <!-- Web Development -->
-    <div class="reveal" style="margin-top: 4rem;">
+    <div class="reveal" id="web-development" style="margin-top: 4rem;">
       <p class="section-label">Projects</p>
       <h2 class="section-title">Web Development</h2>
       <div class="section-divider"></div>
